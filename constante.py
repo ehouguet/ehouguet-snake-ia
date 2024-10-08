@@ -5,8 +5,8 @@ class Constante:
   WITH_MUTATION = True
   WITH_LEARNING = False
 
-  NB_ROW = 30
-  NB_COLUMN = 40
+  NB_ROW = 20
+  NB_COLUMN = 30
 
   UP = 0
   RIGHT = 1

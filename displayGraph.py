@@ -40,21 +40,50 @@ class DisplayGraph:
   def draw(self, neuralNet):
       
     # display lines
-    for input_idx, input_coordinate in enumerate(self.inputs_coordinate):
-      for output_idx, output_coordinate in enumerate(self.outputs_coordinate):
-        weight = neuralNet.matrixInOut.matrix[output_idx][input_idx]
-        color = (200, 200, 200)
-        if (weight < 0):
-          color = (200, 200 * (1 - abs(weight)), 200 * (1 - abs(weight)))
-        if (weight > 0):
-          color = (200 * (1 - weight), 200, 200 * (1 - weight))
-        #print('color : {}'.format(int(3 * abs(weight) + 1)))
-        pygame.draw.line(
-          self.window, 
-          color, 
-          input_coordinate, 
-          output_coordinate,
-          int(3 * abs(weight) + 1))
+    matrixs = neuralNet.toList()
+    points_diff_x = self.outputs_pos_x - self.inputs_pos_x
+    space_between_step = points_diff_x / len(matrixs)
+
+    for step, matrix in enumerate(matrixs):
+      for detination, values in enumerate(matrix):
+        origin_space_between_node = self.height / len(values)
+        for origin, weight in enumerate(values):
+          destination_space_between_node = self.height / len(matrix)
+          origin_coordinate = [
+            self.inputs_pos_x + space_between_step * step,
+            self.pos_y + origin_space_between_node * (origin + 0.5),
+          ]
+          destination_coordinate = [
+            self.inputs_pos_x + space_between_step * (step + 1),
+            self.pos_y + destination_space_between_node * (detination + 0.5),
+          ]
+          color = (200, 200, 200)
+          if (weight < 0):
+            color = (200, 200 * (1 - abs(weight)), 200 * (1 - abs(weight)))
+          if (weight > 0):
+            color = (200 * (1 - weight), 200, 200 * (1 - weight))
+          pygame.draw.line(
+            self.window, 
+            color, 
+            origin_coordinate, 
+            destination_coordinate,
+            int(3 * abs(weight) + 1))
+
+    # for input_idx, input_coordinate in enumerate(self.inputs_coordinate):
+    #   for output_idx, output_coordinate in enumerate(self.outputs_coordinate):
+    #     weight = neuralNet.matrixs[0].matrix[output_idx][input_idx]
+    #     color = (200, 200, 200)
+    #     if (weight < 0):
+    #       color = (200, 200 * (1 - abs(weight)), 200 * (1 - abs(weight)))
+    #     if (weight > 0):
+    #       color = (200 * (1 - weight), 200, 200 * (1 - weight))
+    #     #print('color : {}'.format(int(3 * abs(weight) + 1)))
+    #     pygame.draw.line(
+    #       self.window, 
+    #       color, 
+    #       input_coordinate, 
+    #       output_coordinate,
+    #       int(3 * abs(weight) + 1))
           
     # affichage des noeuds d'inputs
     for idx, name_input in enumerate(self.names_input):

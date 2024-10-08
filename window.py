@@ -81,35 +81,35 @@ class Window:
     self.window.blit(self.apple, (pos_x, pos_y))
 
     # affiche la generation
-    self.draw_text('G{}'.format(brain.generation), FONT_WIDTH * 3, FONT_SIZE * 0.5)
+    self.draw_text('generation {}'.format(brain.generation), FONT_WIDTH * 6, FONT_SIZE * 0.5)
     # affiche le dernier mellieur score
-    self.draw_text('S{}'.format(round(brain.betterScore, 1)), FONT_WIDTH * 3, FONT_SIZE * 1.5)
+    self.draw_text('max score {}'.format(round(brain.betterScore, 1)), FONT_WIDTH * 6, FONT_SIZE * 1.5)
     # affiche le nombre max de coup autorise
-    self.draw_text('C{}'.format(game.nb_step_max_by_score), FONT_WIDTH * 3, FONT_SIZE * 2.5)
-    self.button('-', FONT_WIDTH * 7.5, FONT_SIZE * 2.5, game.increase_nb_step)
-    self.button('+', FONT_WIDTH * 8.5, FONT_SIZE * 2.5, game.decrease_nb_step)
+    self.draw_text('famine    {}'.format(game.nb_step_max_by_score), FONT_WIDTH * 6, FONT_SIZE * 2.5)
+    self.button('-', FONT_WIDTH * 17.5, FONT_SIZE * 2.5, game.increase_nb_step)
+    self.button('+', FONT_WIDTH * 18.5, FONT_SIZE * 2.5, game.decrease_nb_step)
     
     # affiche le boutton de kill du serpent en court
-    self.button('kill', FONT_WIDTH * 8, FONT_SIZE * 0.5, game.kill, True)
+    self.button('kill', FONT_WIDTH * 18, FONT_SIZE * 0.5, game.kill, True)
     # affiche le boutton de lancement du meilleur modele
     if (Constante.WITH_MUTATION):
-      self.button('better', FONT_WIDTH * 8, FONT_SIZE * 1.5, main.lunch_better)
+      self.button('better', FONT_WIDTH * 18, FONT_SIZE * 1.5, main.lunch_better)
     
     # affiche la rapiditer d'affichage
-    self.draw_text('S{}'.format(round(main.speed, 6)), FONT_WIDTH * 3, FONT_SIZE * 3.5)
-    self.button('-', FONT_WIDTH * 7.5, FONT_SIZE * 3.5, main.decrease_speed)
-    self.button('+', FONT_WIDTH * 8.5, FONT_SIZE * 3.5, main.increase_speed)
-    self.button('auto', FONT_WIDTH * 12.5, FONT_SIZE * 3.5, main.speed_auto)
+    self.draw_text('speed     {}'.format(round(main.speed, 6)), FONT_WIDTH * 6, FONT_SIZE * 3.5)
+    self.button('-', FONT_WIDTH * 17.5, FONT_SIZE * 3.5, main.decrease_speed)
+    self.button('+', FONT_WIDTH * 18.5, FONT_SIZE * 3.5, main.increase_speed)
+    self.button('auto', FONT_WIDTH * 22.5, FONT_SIZE * 3.5, main.speed_auto)
     
     # affiche le nombre de mutation
     if (Constante.WITH_MUTATION):
-      self.draw_text('M{}'.format(brain.nb_mutation), FONT_WIDTH * 3, FONT_SIZE * 4.5)
-      self.button('-', FONT_WIDTH * 7.5, FONT_SIZE * 4.5, brain.decrease_nb_mutation, True)
-      self.button('+', FONT_WIDTH * 8.5, FONT_SIZE * 4.5, brain.increase_nb_mutation, True)
+      self.draw_text('mutation  {}'.format(brain.nb_mutation), FONT_WIDTH * 6, FONT_SIZE * 4.5)
+      self.button('-', FONT_WIDTH * 17.5, FONT_SIZE * 4.5, brain.decrease_nb_mutation, True)
+      self.button('+', FONT_WIDTH * 18.5, FONT_SIZE * 4.5, brain.increase_nb_mutation, True)
 
     # affiche l'intensiter de la mutation
     if (Constante.WITH_MUTATION):
-      self.draw_text('I{}'.format(round(brain.mutation_intensity, 1)), FONT_WIDTH * 3, FONT_SIZE * 5.5)
+      self.draw_text('mut. force {}'.format(round(brain.mutation_intensity, 1)), FONT_WIDTH * 6, FONT_SIZE * 5.5)
 
     # dessine le graph
     self.displayGraph.draw( 

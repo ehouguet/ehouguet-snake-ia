@@ -17,7 +17,7 @@ class Game:
     self.last_direction = Constante.DOWN
     self.score = 0
     self.nb_step = 0
-    self.nb_step_max_by_score = (row + column) * 4
+    self.nb_step_max_by_score = (row + column) * 2 + 10
     
   def init(self):
     self.last_direction = Constante.DOWN

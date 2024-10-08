@@ -5,6 +5,8 @@ from constante import Constante
 from neuralNet import NeuralNet
 from plateau import Plateau, Vertebrate
 
+# une matrice par etapes
+
 # trois lignes pour les trois inputs de sorti respectivement:
 #  - gauche
 #  - en face
@@ -20,23 +22,38 @@ from plateau import Plateau, Vertebrate
 #  - pomme a gauche
 #  - pomme en face
 #  - pomme a droite
-#  - biais des noeuds
-intelligentWeights = [
-  [-0.6,  0.0,  0.2,  0.6, -0.6,  0.0],
-  [ 0.0, -0.6,  0.0,  0.4,  0.4,  0.0],
-  [ 0.2,  0.0, -0.6, -0.6,  0.6,  0.0],
-]
-intelligentFoundWeights = [
-  [ 0.02,  0.28, -0.16, -0.32,  0.18, -0.74,  0.13,  0.21,  0.04,  0.0 ], 
-  [-0.04,  0.50, -0.09,  0.02, -0.31, -0.09,  0.10,  0.39, -0.04,  0.25], 
-  [ 0.09,  0.93,  0.20, -0.05, -0.48, -0.67, -0.07, -0.14,  0.13,  0.07]
-]
 basiqueWeights = [
-  [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
-  [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
-  [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+  [
+    [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+    [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+    [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+    [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+    [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+    [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+  ],
+  [
+    [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+    [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+    [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+  ]
 ]
 
+# une version inteligente
+workWeights = [
+  [
+    [0.2, 0.1, 0, -0.4, -0.9, -0.4, 0.3, 0.0, -0.1],
+    [0.1, -0.1, 0.6, 0.8, 0.2, -0.6, 0.0, 0.0, 0.0],
+    [0.0, 0.7, 0.0, -0.1, -0.2, -0.5, 0.3, -0.6, -0.1], 
+    [-0.5, -0.9, 0.1, -0.7, 0.1, -0.9, -0.2, 0.7, -0.3], 
+    [0.3, -0.1, 0.0, 0.0, -0.4, -0.0, 0.1, 0.0, 0.1],
+    [1, -0.4, -0.0, 0.1, 0.3, -0.0, 0.3, -0.2, -0.0]
+  ],
+  [
+    [1.0, 0.0, 0.5, -0.1, -0.9, 0.0],
+    [0.7, 0.3, -0.24, -0.4, 0.4, -0.8],
+    [0.0, 0.0, 0.9, -0.3, -0.6, 0.1]
+  ]
+]
 
 class Brain:
 
@@ -64,7 +81,7 @@ class Brain:
     pygame.event.post(event)
 
   def extract_neural_inputs(self, game):
-    neuralInputs = [None for y in range(len(self.betterNeuralNetWeights.matrixInOut.matrix[0]))]
+    neuralInputs = [None for y in range(len(basiqueWeights[0][0]))]
     last_direction = game.last_direction
     left_direction = ((last_direction - 1) % 4)
     right_direction = ((last_direction + 1) % 4)
@@ -216,7 +233,7 @@ class Brain:
     for idx_mutation in range(0, self.nb_mutation):
       self.currentNeuralNetWeights = self.currentNeuralNetWeights.mutate(self.mutation_intensity)
     print(' ------------------- ')
-    print('matrix use : {}'.format(self.currentNeuralNetWeights.matrixInOut.matrix))
+    print('matrix use : {}'.format(self.currentNeuralNetWeights.toList()))
 
 
   def increase_nb_mutation(self):
